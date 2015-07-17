@@ -18,6 +18,9 @@ if not glew_init:
 
 cdef glfw.GLFWwindow* _window = NULL
 
+# need to find a better place to put this...
+GL_COLOR_BUFFER_BIT = 0x00004000
+
 def open_window(width, height, title):
     global _window
     _window = glfw.glfwCreateWindow(width, height, title, NULL, NULL)
@@ -27,6 +30,14 @@ def open_window(width, height, title):
 
     #enable vsync
     glfw.glfwSwapInterval(1)
+
+    # do a first clear
+    glew.glClearColor(0.0, 0.0, 0.0, 1.0)
+    print GL_COLOR_BUFFER_BIT
+    glew.glClear(GL_COLOR_BUFFER_BIT)
+
+    # and go through the first round
+    finish_frame()
 
 def finish_frame():
     glfw.glfwSwapBuffers(_window)
