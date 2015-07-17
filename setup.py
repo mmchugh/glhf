@@ -64,10 +64,10 @@ x11_libraries = [
 ]
 
 osx_frameworks = [
-    "Cocoa",
-    "OpenGL",
-    "IOKit",
-    "CoreVideo",
+    "-framework", "Cocoa",
+    "-framework", "OpenGL",
+    "-framework", "IOKit",
+    "-framework", "CoreVideo",
 ]
 
 includes = [
