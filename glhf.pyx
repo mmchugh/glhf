@@ -11,10 +11,13 @@ if not glfw_init:
 # make sure we call terminate when we quit
 atexit.register(glfw.glfwTerminate)
 
-# Now initialize glew so it will get function pointers for all the fun stuff
-glew_init = glew.glewInit()
-if not glew_init:
-    raise Exception("Couldn't initialize glew")
+# Now initialize glew so it will get function pointers for all the fun stuff,
+# unless we're on osx, because glewInit isn't necessary there (and segfaults
+# if you try it)
+if not sys.platform == 'darwin':
+    glew_init = glew.glewInit()
+    if not glew_init:
+        raise Exception("Couldn't initialize glew")
 
 cdef glfw.GLFWwindow* _window = NULL
 
