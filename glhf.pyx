@@ -1,14 +1,20 @@
 import atexit
 
+cimport glew
 cimport glfw
 
 # Initialize glfw on import, because we can do that in python
-init = glfw.glfwInit()
-if not init:
+glfw_init = glfw.glfwInit()
+if not glfw_init:
     raise Exception("Couldn't initialize glfw")
 
 # make sure we call terminate when we quit
 atexit.register(glfw.glfwTerminate)
+
+# Now initialize glew so it will get function pointers for all the fun stuff
+glew_init = glew.glewInit()
+if not glew_init:
+    raise Exception("Couldn't initialize glew")
 
 cdef glfw.GLFWwindow* _window = NULL
 

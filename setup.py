@@ -4,6 +4,7 @@ from distutils.extension import Extension
 
 sourcefiles = [
     "glhf.pyx",
+    "glew/src/glew.c",
     "glfw/src/glx_context.c",
     "glfw/src/x11_init.c",
     "glfw/src/x11_monitor.c",
@@ -19,10 +20,15 @@ sourcefiles = [
     "glfw/src/window.c",
 ]
 
+includes = [
+    "glew/include",
+]
+
 extensions = [
     Extension(
         "glhf",
         sources=sourcefiles,
+        include_dirs=includes,
         define_macros=[
             ("_GLFW_USE_OPENGL", None),
             ("_GLFW_X11", None),
