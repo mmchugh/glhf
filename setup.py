@@ -26,13 +26,13 @@ x11_sourcefiles = [
 ]
 
 osx_sourcefiles = [
-    "cocoa_init.m",
-    "cocoa_monitor.m",
-    "cocoa_window.m",
-    "iokit_joystick.m",
-    "mach_time.c",
-    "posix_tls.c",
-    "nsgl_context.m",
+    "glfw/src/cocoa_init.m",
+    "glfw/src/cocoa_monitor.m",
+    "glfw/src/cocoa_window.m",
+    "glfw/src/iokit_joystick.m",
+    "glfw/src/mach_time.c",
+    "glfw/src/posix_tls.c",
+    "glfw/src/nsgl_context.m",
 ]
 
 
