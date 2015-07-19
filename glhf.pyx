@@ -1,4 +1,5 @@
 import atexit
+import sys
 
 cimport glew
 cimport glfw
