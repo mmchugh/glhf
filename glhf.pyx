@@ -19,27 +19,49 @@ if not sys.platform == 'darwin':
     glew_init = glew.glewInit()
     if not glew_init:
         raise Exception("Couldn't initialize glew")
+    else:
+        print "inited glew"
 
-cdef glfw.GLFWwindow* _window = NULL
+cdef extern from "helpers.h":
+    cdef glfw.GLFWwindow* open_window(int width, int height, const char* title)
+    cdef glew.GLuint initialize_program(const char* vertex_source, const char* fragment_source)
 
-def open_window(width, height, title):
-    global _window
-    _window = glfw.glfwCreateWindow(width, height, title, NULL, NULL)
+cdef class Window(object):
+    cdef glfw.GLFWwindow* _window
 
-    #set this window as the opengl context
-    glfw.glfwMakeContextCurrent(_window)
+    def __cinit__(self, width, height, title):
+        self._window = open_window(width, height, title)
 
-    #enable vsync
-    glfw.glfwSwapInterval(1)
+    def is_open(self):
+        return not glfw.glfwWindowShouldClose(self._window)
 
-def running():
-    return not glfw.glfwWindowShouldClose(_window)
+    def finish_frame(self):
+        glfw.glfwSwapBuffers(self._window)
+        glfw.glfwPollEvents()
 
 def clear():
     # need to find a better place to put this...
     cdef glew.GLbitfield GL_COLOR_BUFFER_BIT = 0x00004000
     glew.glClear(GL_COLOR_BUFFER_BIT)
 
-def finish_frame():
-    glfw.glfwSwapBuffers(_window)
-    glfw.glfwPollEvents()
+vertex_shader = """#version 330 core
+layout(location = 0)in vec4 position;
+
+void main()
+{
+    gl_Position = position;
+}
+"""
+
+fragment_shader = """#version 330
+
+out vec4 final_color;
+
+void main()
+{
+    final_color = vec4(1.0, 0.0, 0.0, 1.0);
+}
+"""
+
+def default_program():
+    return initialize_program(vertex_shader, fragment_shader)

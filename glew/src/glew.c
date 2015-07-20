@@ -10282,6 +10282,8 @@ static
 #endif
 GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
 {
+  static GLboolean initialized = GL_FALSE;
+  if (initialized) return GLEW_OK;
   const GLubyte* s;
   GLuint dot;
   GLint major, minor;
@@ -12292,6 +12294,7 @@ GLenum GLEWAPIENTRY glewContextInit (GLEW_CONTEXT_ARG_DEF_LIST)
   if (glewExperimental || GLEW_WIN_swap_hint) GLEW_WIN_swap_hint = !_glewInit_GL_WIN_swap_hint(GLEW_CONTEXT_ARG_VAR_INIT);
 #endif /* GL_WIN_swap_hint */
 
+  initialized = GL_TRUE;
   return GLEW_OK;
 }
 

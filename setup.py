@@ -12,6 +12,7 @@ sourcefiles = [
     "glfw/src/input.c",
     "glfw/src/monitor.c",
     "glfw/src/window.c",
+    "helpers.c",
 ]
 
 x11_sourcefiles = [
